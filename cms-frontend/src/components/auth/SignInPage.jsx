@@ -102,7 +102,7 @@ const SignInPage = () => {
               <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-6 14h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/>
             </svg>
           </div>
-          <h1 className="text-white font-black text-2xl tracking-tight">Smart Clinic CMS</h1>
+          <h1 className="text-white font-black text-2xl tracking-tight">MediSmart</h1>
           <p className="text-white/50 text-xs mt-1">
             Choose a role below to sign in directly with password <span className="text-cyan-300 font-mono font-bold">123</span>
           </p>

@@ -15,7 +15,7 @@ try:
     
     # Header
     c.setFont("Helvetica-Bold", 24)
-    c.drawString(50, 750, "Smart Clinic")
+    c.drawString(50, 750, "MediSmart")
     
     c.setFont("Helvetica", 10)
     c.drawString(50, 735, "123 Medical Center Blvd, Healthcare City")

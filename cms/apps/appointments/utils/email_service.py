@@ -7,7 +7,7 @@ def send_appointment_confirmation_email(appointment, is_virtual=False, meet_link
     patient_email = appointment.patient.user.email
     doctor_email = appointment.doctor.user.email
     
-    patient_subject = f"Appointment Confirmed: Smart Clinic - {appointment.date}"
+    patient_subject = f"Appointment Confirmed: MediSmart - {appointment.date}"
     doctor_subject = f"New Appointment Scheduled: {appointment.patient.full_name} - {appointment.date}"
     
     context = {
@@ -26,7 +26,7 @@ def send_appointment_confirmation_email(appointment, is_virtual=False, meet_link
     patient_html = f"""
     <html>
       <body style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-        <h2 style="color: #1e3a8a;">Smart Clinic Appointment Confirmation</h2>
+        <h2 style="color: #1e3a8a;">MediSmart Appointment Confirmation</h2>
         <p>Dear {context['patient_name']},</p>
         <p>Your appointment has been successfully confirmed.</p>
         
@@ -71,7 +71,7 @@ def send_appointment_confirmation_email(appointment, is_virtual=False, meet_link
         
     footer_block = """
         <p>If you have any questions, please contact the clinic.</p>
-        <p>Best regards,<br><strong>Smart Clinic Team</strong></p>
+        <p>Best regards,<br><strong>MediSmart Team</strong></p>
       </body>
     </html>
     """
@@ -89,11 +89,11 @@ def send_appointment_confirmation_email(appointment, is_virtual=False, meet_link
     end_utc = end_dt_aware.astimezone(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     
     now_utc = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
-    location = meet_link if meet_link else "Smart Clinic"
+    location = meet_link if meet_link else "MediSmart"
     
     ics_content = f"""BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Smart Clinic//EN
+PRODID:-//MediSmart//EN
 BEGIN:VEVENT
 UID:appt_{appointment.id}@smartclinic.com
 DTSTAMP:{now_utc}
@@ -126,14 +126,14 @@ END:VCALENDAR"""
 def send_invoice_email(invoice):
     patient_email = invoice.patient.user.email
     
-    subject = f"Invoice #{invoice.invoice_id} from Smart Clinic"
+    subject = f"Invoice #{invoice.invoice_id} from MediSmart"
     
     html_content = f"""
     <html>
       <body style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-        <h2 style="color: #1e3a8a;">Smart Clinic Invoice</h2>
+        <h2 style="color: #1e3a8a;">MediSmart Invoice</h2>
         <p>Dear {invoice.patient.user.get_full_name()},</p>
-        <p>Thank you for visiting Smart Clinic. Please find the details of your payment below.</p>
+        <p>Thank you for visiting MediSmart. Please find the details of your payment below.</p>
         
         <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
             <tr style="background-color: #f1f5f9;">
@@ -172,7 +172,7 @@ def send_invoice_email(invoice):
             <p style="margin: 5px 0 0 0;"><strong>Transaction ID:</strong> {invoice.transaction_id or 'N/A'}</p>
         </div>
         
-        <p style="margin-top: 30px; font-size: 12px; color: #64748b; text-align: center;">This is an automatically generated email from Smart Clinic Management System.</p>
+        <p style="margin-top: 30px; font-size: 12px; color: #64748b; text-align: center;">This is an automatically generated email from MediSmart Platform.</p>
       </body>
     </html>
     """
@@ -201,7 +201,7 @@ def send_review_request_email(appointment):
     html_content = f"""
     <html>
       <body style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-        <h2 style="color: #1e3a8a;">Smart Clinic Feedback Request</h2>
+        <h2 style="color: #1e3a8a;">MediSmart Feedback Request</h2>
         <p>Dear {appointment.patient.user.get_full_name()},</p>
         <p>We hope your recent consultation with Dr. {appointment.doctor.user.get_full_name()} went well.</p>
         <p>We are constantly striving to improve our services and your feedback is invaluable to us.</p>
@@ -214,7 +214,7 @@ def send_review_request_email(appointment):
         
         <p>Or copy this link into your browser: <br><a href="{review_link}" style="color: #2563eb;">{review_link}</a></p>
         
-        <p style="margin-top: 30px; font-size: 12px; color: #64748b; text-align: center;">Smart Clinic Management System</p>
+        <p style="margin-top: 30px; font-size: 12px; color: #64748b; text-align: center;">MediSmart Platform</p>
       </body>
     </html>
     """
@@ -232,7 +232,7 @@ def send_review_request_email(appointment):
 
 def send_appointment_reminder_email(appointment):
     patient_email = appointment.patient.user.email
-    subject = f"Smart Clinic: Reminder - Appointment scheduled for tomorrow"
+    subject = f"MediSmart: Reminder - Appointment scheduled for tomorrow"
     
     # Check if virtual
     is_virtual = appointment.appointment_type == 'virtual'
@@ -251,7 +251,7 @@ def send_appointment_reminder_email(appointment):
     html_content = f"""
     <html>
       <body style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-        <h2 style="color: #1e3a8a;">Smart Clinic: Appointment Reminder</h2>
+        <h2 style="color: #1e3a8a;">MediSmart: Appointment Reminder</h2>
         <p>Dear {context['patient_name']},</p>
         <p>This is a friendly reminder that you have an appointment scheduled for tomorrow.</p>
         
@@ -278,7 +278,7 @@ def send_appointment_reminder_email(appointment):
         
     html_content += """
         <p>If you need to reschedule or cancel, please do so via the Patient Dashboard or call the clinic.</p>
-        <p>Best regards,<br><strong>Smart Clinic Team</strong></p>
+        <p>Best regards,<br><strong>MediSmart Team</strong></p>
       </body>
     </html>
     """
@@ -298,14 +298,14 @@ def send_patient_welcome_email(patient, raw_password):
     if not patient_email:
         return
         
-    subject = "Welcome to Smart Clinic - Your Account Details"
+    subject = "Welcome to MediSmart - Your Account Details"
     
     html_content = f"""
     <html>
       <body style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-        <h2 style="color: #1e3a8a;">Welcome to Smart Clinic!</h2>
+        <h2 style="color: #1e3a8a;">Welcome to MediSmart!</h2>
         <p>Dear {patient.full_name},</p>
-        <p>Your patient profile has been successfully created at Smart Clinic.</p>
+        <p>Your patient profile has been successfully created at MediSmart.</p>
         
         <div style="background-color: #f8fafc; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #3b82f6;">
             <p style="margin: 5px 0;"><strong>Patient ID:</strong> {patient.patient_id}</p>
@@ -317,7 +317,7 @@ def send_patient_welcome_email(patient, raw_password):
         
         <p>You can log in to your Patient Dashboard to book appointments, view medical records, and download invoices.</p>
         
-        <p>Best regards,<br><strong>Smart Clinic Team</strong></p>
+        <p>Best regards,<br><strong>MediSmart Team</strong></p>
       </body>
     </html>
     """

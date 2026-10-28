@@ -458,7 +458,7 @@ class PrescriptionViewSet(viewsets.ModelViewSet):
         # Header
         c.setFont("Helvetica-Bold", 24)
         c.setFillColorRGB(0.12, 0.23, 0.54) # Navy blue
-        c.drawString(50, 750, "Smart Clinic")
+        c.drawString(50, 750, "MediSmart")
         
         c.setFont("Helvetica", 10)
         c.setFillColorRGB(0.4, 0.4, 0.4)

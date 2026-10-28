@@ -74,7 +74,7 @@ const SignUpPage = () => {
               <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-6 14h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/>
             </svg>
           </div>
-          <p className="text-white font-black text-2xl tracking-tight">Smart Clinic</p>
+          <p className="text-white font-black text-2xl tracking-tight">MediSmart</p>
           <p className="text-white/40 text-xs mt-1">
             Create an account directly
           </p>

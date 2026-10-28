@@ -32,9 +32,9 @@ def generate_otp():
 
 def send_otp_email(email, otp, purpose='login'):
     print(f"\n[{'='*40}]\n OTP GENERATED FOR {email} ({purpose}): {otp}\n[{'='*40}]\n")
-    subject = 'Smart Clinic — Your OTP'
+    subject = 'MediSmart — Your OTP'
     message = (
-        f'Your Smart Clinic OTP for {purpose} is: {otp}\n\n'
+        f'Your MediSmart OTP for {purpose} is: {otp}\n\n'
         f'This OTP is valid for 5 minutes. Do not share it with anyone.'
     )
     send_mail(

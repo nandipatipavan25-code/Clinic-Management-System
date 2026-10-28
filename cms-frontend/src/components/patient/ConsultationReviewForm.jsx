@@ -172,7 +172,7 @@ const ConsultationReviewForm = () => {
           <p className="text-emerald-400 font-bold text-sm uppercase tracking-widest">Feedback Submitted Successfully</p>
         </div>
         <p className="text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
-          Your feedback is extremely valuable to us. It helps Smart Clinic maintain premium medical care standards and improve patient experiences.
+          Your feedback is extremely valuable to us. It helps MediSmart maintain premium medical care standards and improve patient experiences.
         </p>
         <div className="pt-6 border-t border-slate-800/80 max-w-sm mx-auto">
           <p className="text-xs text-slate-500">Appointment ID: <span className="font-mono text-slate-400">{appointmentId}</span></p>

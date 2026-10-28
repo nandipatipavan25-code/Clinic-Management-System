@@ -11,7 +11,7 @@ from apps.users.models import Doctor, Receptionist, Technician, Patient
 from apps.appointments.models import Appointment, DoctorAvailability, Invoice
 from apps.medical_records.models import Drug, ScanOrder, Prescription, PrescribedMedication, ScanResult
 
-print("Seeding CMS users for all roles...")
+print("Seeding MediSmart users for all roles...")
 
 PASSWORD = "123"
 

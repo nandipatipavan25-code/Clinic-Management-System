@@ -70,7 +70,7 @@ const LoginPage = () => {
             </svg>
           </div>
           <div>
-            <p className="text-white font-black text-lg leading-none tracking-tight">Smart Clinic</p>
+            <p className="text-white font-black text-lg leading-none tracking-tight">MediSmart</p>
             <p className="text-cyan-400 text-[10px] uppercase tracking-widest font-semibold mt-0.5">Healthcare OS</p>
           </div>
         </div>
@@ -167,7 +167,7 @@ const LoginPage = () => {
             <div className="relative overflow-hidden aspect-[16/9] sm:aspect-[16/9.5]">
               <img
                 src="/hero-dashboard.jpg"
-                alt="Smart Clinic Dashboard Interface"
+                alt="MediSmart Dashboard Interface"
                 className="w-full h-full object-cover object-top hover:scale-[1.02] transition-transform duration-700 ease-out"
                 loading="eager"
               />
@@ -217,7 +217,7 @@ const LoginPage = () => {
             <div className="relative rounded-3xl overflow-hidden border border-white/15 bg-[#051630] shadow-2xl shadow-black/70">
               <img
                 src="/patient-journey.jpg"
-                alt="Smart Clinical Care Journey"
+                alt="MediSmart Care Journey"
                 className="w-full h-auto object-cover hover:scale-105 transition-transform duration-700"
                 loading="lazy"
               />
@@ -306,7 +306,7 @@ const LoginPage = () => {
           
           <div className="relative z-10">
             <h2 className="text-white font-black text-3xl sm:text-4xl mb-4 tracking-tight">
-              Ready to Experience Smart Clinic?
+              Ready to Experience MediSmart?
             </h2>
             <p className="text-white/60 text-base sm:text-lg mb-8 max-w-lg mx-auto">
               Test all 5 clinical workflows instantly with pre-seeded demo data and password <span className="text-cyan-300 font-mono font-bold">123</span>.
@@ -332,9 +332,9 @@ const LoginPage = () => {
                 <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-6 14h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/>
               </svg>
             </div>
-            <span className="text-white/80 text-sm font-bold tracking-tight">Smart Clinic</span>
+            <span className="text-white/80 text-sm font-bold tracking-tight">MediSmart</span>
           </div>
-          <p className="text-white/30 text-xs">© 2026 Smart Clinic System · All rights reserved</p>
+          <p className="text-white/30 text-xs">© 2026 MediSmart Platform · All rights reserved</p>
           <div className="flex gap-6 text-xs text-white/40">
             <span className="hover:text-white transition-colors cursor-pointer" onClick={() => navigate('/login')}>Sign In</span>
             <span className="hover:text-white transition-colors cursor-pointer" onClick={() => navigate('/signup')}>Sign Up</span>

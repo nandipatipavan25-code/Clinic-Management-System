@@ -180,8 +180,12 @@ const TopNav = () => {
             className={`flex items-center gap-2 cursor-pointer ${user?.role === 'senior_doctor' ? 'md:hidden' : ''}`} 
             onClick={() => navigate('/')}
           >
-            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">CMS</div>
-            <h1 className="text-navy font-bold text-lg hidden lg:block tracking-tight">Clinic-Management</h1>
+            <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center text-white shadow-sm">
+              <svg viewBox="0 0 24 24" fill="white" className="w-5 h-5">
+                <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-6 14h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/>
+              </svg>
+            </div>
+            <h1 className="text-navy font-bold text-lg hidden lg:block tracking-tight">MediSmart</h1>
           </div>
 
           {/* Desktop Navigation */}

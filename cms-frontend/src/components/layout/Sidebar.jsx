@@ -14,7 +14,7 @@ const Sidebar = () => {
   return (
     <div className="hidden md:flex w-[240px] bg-navy text-white flex-col h-screen sticky top-0 shrink-0 shadow-lg z-20">
       <div className="h-[70px] flex items-center justify-center border-b border-white/10 shrink-0">
-        <span className="text-xl font-bold tracking-tight">Smart CMS</span>
+        <span className="text-xl font-bold tracking-tight">MediSmart</span>
       </div>
       <nav className="flex-1 py-4 overflow-y-auto custom-scrollbar">
         <ul className="space-y-1">
@@ -41,7 +41,7 @@ const Sidebar = () => {
         </ul>
       </nav>
       <div className="p-4 border-t border-white/10 text-xs text-slate-400 text-center">
-        Smart CMS v1.0
+        MediSmart v1.0
       </div>
     </div>
   );

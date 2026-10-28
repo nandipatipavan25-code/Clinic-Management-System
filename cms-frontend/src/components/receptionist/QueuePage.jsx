@@ -235,10 +235,14 @@ const QueuePage = () => {
         {/* TV Header */}
         <div className="flex items-center justify-between border-b border-slate-800 pb-5 mb-6 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/20 text-white">CMS</div>
+            <div className="w-12 h-12 bg-gradient-to-tr from-blue-600 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20 text-white">
+              <svg viewBox="0 0 24 24" fill="white" className="w-6 h-6">
+                <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-6 14h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/>
+              </svg>
+            </div>
             <div>
               <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
-                SMART CLINIC PATIENT CALL BOARD
+                MEDISMART PATIENT CALL BOARD
                 <span className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></span>
               </h1>
               <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">Live Waiting Room Screen</p>
