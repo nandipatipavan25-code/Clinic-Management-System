@@ -11,7 +11,7 @@ from apps.users.models import Doctor, Receptionist, Technician, Patient
 from apps.appointments.models import Appointment, DoctorAvailability, Invoice
 from apps.medical_records.models import Drug, ScanOrder, Prescription, PrescribedMedication, ScanResult
 
-print("Seeding CLMS users for all roles...")
+print("Seeding CMS users for all roles...")
 
 PASSWORD = "123"
 
@@ -251,7 +251,7 @@ app3, _ = Appointment.objects.get_or_create(
     defaults={
         "appointment_type": "virtual",
         "status": "confirmed",
-        "meeting_link": "https://meet.google.com/xyz-test-clms",
+        "meeting_link": "https://meet.google.com/xyz-test-cms",
         "amount_paid": 800.00,
     }
 )

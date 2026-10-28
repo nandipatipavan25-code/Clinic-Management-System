@@ -180,7 +180,7 @@ const TopNav = () => {
             className={`flex items-center gap-2 cursor-pointer ${user?.role === 'senior_doctor' ? 'md:hidden' : ''}`} 
             onClick={() => navigate('/')}
           >
-            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">CLMS</div>
+            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">CMS</div>
             <h1 className="text-navy font-bold text-lg hidden lg:block tracking-tight">Clinic-Management</h1>
           </div>
 

@@ -235,7 +235,7 @@ const QueuePage = () => {
         {/* TV Header */}
         <div className="flex items-center justify-between border-b border-slate-800 pb-5 mb-6 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/20 text-white">CLMS</div>
+            <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/20 text-white">CMS</div>
             <div>
               <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
                 SMART CLINIC PATIENT CALL BOARD
