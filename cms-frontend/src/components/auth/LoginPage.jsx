@@ -142,36 +142,36 @@ const LoginPage = () => {
         </div>
 
         {/* ── High-Res App Interface Showcase (HERO IMAGE) ── */}
-        <div className="animate-reveal-4 mt-16 w-full max-w-5xl relative group">
+        <div className="animate-reveal-4 mt-16 w-full max-w-6xl relative group">
           {/* Outer Ambient Glow */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 rounded-3xl blur-2xl opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-300" />
+          <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600 rounded-[2.5rem] blur-2xl opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-300" />
           
-          <div className="relative rounded-3xl overflow-hidden border border-white/15 bg-[#071733]/90 shadow-2xl shadow-black/80 backdrop-blur-2xl">
+          <div className="relative rounded-[2rem] overflow-hidden border border-white/15 bg-[#071733]/90 shadow-2xl shadow-black/80 backdrop-blur-2xl">
             {/* Window Top Bar */}
-            <div className="flex items-center justify-between px-5 py-3 border-b border-white/10 bg-white/[0.03]">
+            <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/10 bg-white/[0.03]">
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-red-500/80" />
                 <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <span className="w-3 h-3 rounded-full bg-emerald-500/80" />
               </div>
-              <div className="flex items-center gap-2 px-4 py-1 rounded-full bg-black/40 border border-white/10 text-white/40 text-xs font-mono">
+              <div className="flex items-center gap-2 px-4 py-1 rounded-full bg-black/40 border border-white/10 text-white/50 text-xs font-mono">
                 <span className="text-cyan-400">🔒</span>
-                <span>https://smartclinic.health/dashboard/doctor</span>
+                <span>https://clinic-management-system-jade-five.vercel.app/dashboard/doctor</span>
               </div>
               <div className="text-[11px] text-cyan-400 font-medium">
                 Live Preview
               </div>
             </div>
 
-            {/* Dashboard Image */}
-            <div className="relative overflow-hidden aspect-[16/9] sm:aspect-[16/9.5]">
+            {/* Dashboard Image - Substantially Increased Height */}
+            <div className="relative overflow-hidden h-[420px] sm:h-[560px] md:h-[660px] lg:h-[760px] w-full">
               <img
                 src="/hero-dashboard.jpg"
                 alt="MediSmart Dashboard Interface"
                 className="w-full h-full object-cover object-top hover:scale-[1.02] transition-transform duration-700 ease-out"
                 loading="eager"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#030d1d] via-transparent to-transparent opacity-60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030d1d] via-transparent to-transparent opacity-40 pointer-events-none" />
 
               {/* Floating Live Badges */}
               <div className="absolute bottom-6 left-6 flex items-center gap-3 bg-[#051630]/90 border border-cyan-400/30 backdrop-blur-xl px-4 py-2.5 rounded-2xl shadow-xl shadow-black/60">
@@ -211,14 +211,14 @@ const LoginPage = () => {
       <section id="patient-journey" className="relative z-10 px-6 lg:px-16 py-24 max-w-6xl mx-auto w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
-          {/* Left: Journey Image in Frame */}
+          {/* Left: Journey Image in Frame - Generous Height */}
           <div className="relative group order-2 lg:order-1">
             <div className="absolute -inset-1 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-3xl blur-xl opacity-20 group-hover:opacity-35 transition duration-500" />
-            <div className="relative rounded-3xl overflow-hidden border border-white/15 bg-[#051630] shadow-2xl shadow-black/70">
+            <div className="relative rounded-3xl overflow-hidden border border-white/15 bg-[#051630] shadow-2xl shadow-black/70 h-[380px] sm:h-[480px] lg:h-[540px]">
               <img
                 src="/patient-journey.jpg"
                 alt="MediSmart Care Journey"
-                className="w-full h-auto object-cover hover:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700"
                 loading="lazy"
               />
               <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-md rounded-2xl p-4 border border-white/10">
