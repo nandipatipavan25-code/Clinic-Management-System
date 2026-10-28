@@ -1,5 +1,5 @@
-$TaskName = "GAClinicReminders"
-$ScriptPath = "c:\Users\Abhishek\Clinic-Management-System\run_reminders.bat"
+$TaskName = "ClinicReminders"
+$ScriptPath = "$PSScriptRoot\run_reminders.bat"
 $Time = "08:00"
 
 # Check if task already exists and delete it to recreate
@@ -15,6 +15,6 @@ $Trigger = New-ScheduledTaskTrigger -Daily -At $Time
 $Settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 
 # Register the scheduled task
-Register-ScheduledTask -Action $Action -Trigger $Trigger -TaskName $TaskName -Settings $Settings -Description "Sends automated email reminders for GA Clinic appointments."
+Register-ScheduledTask -Action $Action -Trigger $Trigger -TaskName $TaskName -Settings $Settings -Description "Sends automated email reminders for Clinic appointments."
 
 Write-Host "Successfully registered scheduled task '$TaskName' to run daily at $Time."
