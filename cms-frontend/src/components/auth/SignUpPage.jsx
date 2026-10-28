@@ -3,31 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
 import { authApi } from '../../api/auth';
 import { ROLE_CONFIG } from '../../utils/roleConfig';
-import OtpInput from './OtpInput';
-
 import { GoogleLogin } from '@react-oauth/google';
 
-// step: 'form' | 'otp'
+const ROLES = [
+  { id: 'patient',       label: 'Patient',       badge: 'User' },
+  { id: 'doctor',        label: 'Doctor',        badge: 'Doctor' },
+  { id: 'receptionist',  label: 'Receptionist',  badge: 'Front Desk' },
+  { id: 'technician',    label: 'Technician',    badge: 'Lab' },
+  { id: 'senior_doctor', label: 'Senior Doctor', badge: 'Admin' },
+];
+
 const SignUpPage = () => {
-  const [step, setStep]         = useState('form');
   const [userId, setUserId]     = useState('');
   const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm]   = useState('');
   const [role, setRole]         = useState('patient');
-  const [otp, setOtp]           = useState('');
   const [error, setError]       = useState(null);
   const [loading, setLoading]   = useState(false);
-  const [resendTimer, setResendTimer] = useState(0);
   const { setAuth }             = useAuthStore();
   const navigate                = useNavigate();
-
-  const startResendTimer = () => {
-    setResendTimer(30);
-    const t = setInterval(() => {
-      setResendTimer(prev => { if (prev <= 1) { clearInterval(t); return 0; } return prev - 1; });
-    }, 1000);
-  };
 
   const handleGoogleSuccess = async (cred) => {
     setLoading(true); setError(null);
@@ -46,30 +41,15 @@ const SignUpPage = () => {
     setError(null);
     if (!userId || !email || !password || !role) { setError('All fields are required.'); return; }
     if (password !== confirm) { setError('Passwords do not match.'); return; }
-    if (password.length < 6) { setError('Password must be at least 6 characters.'); return; }
+    if (password.length < 3) { setError('Password must be at least 3 characters.'); return; }
     setLoading(true);
     try {
-      const data = await authApi.registerRequestOtp(userId, email, password, role);
-      if (data.debug_otp) setError(`[DEV] OTP: ${data.debug_otp}`);
-      setStep('otp');
-      startResendTimer();
-    } catch (err) {
-      setError(err.response?.data?.error || 'Something went wrong. Try again.');
-    } finally { setLoading(false); }
-  };
-
-  const handleVerifyOtp = async (e) => {
-    e.preventDefault();
-    setError(null);
-    if (otp.length < 6) { setError('Enter the complete 6-digit OTP.'); return; }
-    setLoading(true);
-    try {
-      const res = await authApi.registerVerifyOtp(email, otp);
+      const res = await authApi.register(userId, email, password, role);
       setAuth(res.user, res.access);
       const cfg = ROLE_CONFIG[res.user.role];
       navigate(cfg ? cfg.dashboardRoute : '/login', { replace: true });
     } catch (err) {
-      setError(err.response?.data?.error || 'Invalid or expired OTP.');
+      setError(err.response?.data?.error || 'Failed to create account. Please try again.');
     } finally { setLoading(false); }
   };
 
@@ -77,26 +57,26 @@ const SignUpPage = () => {
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-10"
       style={{ background: 'linear-gradient(160deg,#020b18 0%,#041530 50%,#071e45 100%)' }}>
 
-      <button onClick={() => step === 'otp' ? setStep('form') : navigate('/')}
+      <button onClick={() => navigate('/')}
         className="absolute top-6 left-6 flex items-center gap-2 text-white/40 hover:text-white text-sm transition-colors">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
           <path d="M19 12H5M12 5l-7 7 7 7"/>
         </svg>
-        {step === 'otp' ? 'Back' : 'Home'}
+        Home
       </button>
 
-      <div className="w-full max-w-[440px]">
+      <div className="w-full max-w-[460px]">
         {/* Logo */}
-        <div className="flex flex-col items-center mb-8">
-          <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-900/50 mb-4"
+        <div className="flex flex-col items-center mb-6 text-center">
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-900/50 mb-3"
             style={{ background: 'linear-gradient(135deg,#1d4ed8,#0ea5e9)' }}>
             <svg viewBox="0 0 24 24" fill="white" className="w-8 h-8">
               <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-6 14h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/>
             </svg>
           </div>
-          <p className="text-white font-black text-xl">Smart Clinic</p>
-          <p className="text-white/40 text-sm mt-1">
-            {step === 'form' ? 'Create your staff account' : 'Verify your identity'}
+          <p className="text-white font-black text-2xl tracking-tight">Smart Clinic</p>
+          <p className="text-white/40 text-xs mt-1">
+            Create an account directly
           </p>
         </div>
 
@@ -104,114 +84,84 @@ const SignUpPage = () => {
           style={{ background: 'rgba(8,22,52,0.95)', boxShadow: '0 40px 100px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.07)' }}>
           <div className="h-[2px]" style={{ background: 'linear-gradient(90deg,#1d4ed8,#0ea5e9,#a78bfa)' }} />
 
-          {/* Step indicator */}
-          <div className="flex px-8 pt-6 gap-2">
-            {['Account Details', 'OTP Verify'].map((label, i) => (
-              <div key={label} className="flex-1 flex flex-col gap-1">
-                <div className="h-1 rounded-full transition-all duration-300"
-                  style={{ background: i === 0 ? '#3b82f6' : step === 'otp' ? '#3b82f6' : 'rgba(255,255,255,0.1)' }} />
-                <p className="text-white/30 text-[10px]">{label}</p>
+          <div className="p-6 sm:p-8">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {/* Role selection */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-white/50 text-xs font-semibold uppercase tracking-wider">Select Role</label>
+                <div className="grid grid-cols-3 gap-1.5">
+                  {ROLES.map((r) => (
+                    <button
+                      key={r.id}
+                      type="button"
+                      onClick={() => setRole(r.id)}
+                      className={`p-2 rounded-xl text-center text-xs font-semibold border transition-all ${
+                        role === r.id
+                          ? 'border-blue-400 bg-blue-500/20 text-white'
+                          : 'border-white/10 bg-white/5 text-white/50 hover:text-white'
+                      }`}
+                    >
+                      {r.label}
+                    </button>
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
 
-          <div className="px-8 py-6">
-            {step === 'form' ? (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                {/* User ID */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-white/50 text-xs font-semibold uppercase tracking-wider">User ID</label>
-                  <input type="text" value={userId} onChange={e => setUserId(e.target.value)}
-                    placeholder="e.g. dr.aryan or EMP001" autoFocus
-                    className="w-full rounded-xl px-4 py-3.5 text-sm text-white outline-none border border-white/10 focus:border-blue-500/60 transition-colors placeholder-white/20"
-                    style={{ background: 'rgba(255,255,255,0.05)' }} />
-                </div>
+              {/* User ID */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-white/50 text-xs font-semibold uppercase tracking-wider">User ID</label>
+                <input type="text" value={userId} onChange={e => setUserId(e.target.value)}
+                  placeholder="e.g. johndoe" autoFocus required
+                  className="w-full rounded-xl px-4 py-3 text-sm text-white outline-none border border-white/10 focus:border-blue-500/60 transition-colors placeholder-white/20"
+                  style={{ background: 'rgba(255,255,255,0.05)' }} />
+              </div>
 
-                {/* Email */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-white/50 text-xs font-semibold uppercase tracking-wider">Email</label>
-                  <input type="email" value={email} onChange={e => setEmail(e.target.value)}
-                    placeholder="you@smartclinic.com"
-                    className="w-full rounded-xl px-4 py-3.5 text-sm text-white outline-none border border-white/10 focus:border-blue-500/60 transition-colors placeholder-white/20"
-                    style={{ background: 'rgba(255,255,255,0.05)' }} />
-                </div>
+              {/* Email */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-white/50 text-xs font-semibold uppercase tracking-wider">Email Address</label>
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)}
+                  placeholder="you@example.com" required
+                  className="w-full rounded-xl px-4 py-3 text-sm text-white outline-none border border-white/10 focus:border-blue-500/60 transition-colors placeholder-white/20"
+                  style={{ background: 'rgba(255,255,255,0.05)' }} />
+              </div>
 
+              {/* Password */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-white/50 text-xs font-semibold uppercase tracking-wider">Password</label>
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)}
+                  placeholder="Password" required
+                  className="w-full rounded-xl px-4 py-3 text-sm text-white outline-none border border-white/10 focus:border-blue-500/60 transition-colors placeholder-white/20"
+                  style={{ background: 'rgba(255,255,255,0.05)' }} />
+              </div>
 
+              {/* Confirm */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-white/50 text-xs font-semibold uppercase tracking-wider">Confirm Password</label>
+                <input type="password" value={confirm} onChange={e => setConfirm(e.target.value)}
+                  placeholder="Re-enter password" required
+                  className="w-full rounded-xl px-4 py-3 text-sm text-white outline-none border border-white/10 focus:border-blue-500/60 transition-colors placeholder-white/20"
+                  style={{ background: 'rgba(255,255,255,0.05)' }} />
+              </div>
 
-                {/* Password */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-white/50 text-xs font-semibold uppercase tracking-wider">Password</label>
-                  <input type="password" value={password} onChange={e => setPassword(e.target.value)}
-                    placeholder="Min. 6 characters"
-                    className="w-full rounded-xl px-4 py-3.5 text-sm text-white outline-none border border-white/10 focus:border-blue-500/60 transition-colors placeholder-white/20"
-                    style={{ background: 'rgba(255,255,255,0.05)' }} />
-                </div>
+              {error && <ErrorBox msg={error} />}
 
-                {/* Confirm */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-white/50 text-xs font-semibold uppercase tracking-wider">Confirm Password</label>
-                  <input type="password" value={confirm} onChange={e => setConfirm(e.target.value)}
-                    placeholder="Re-enter password"
-                    className="w-full rounded-xl px-4 py-3.5 text-sm text-white outline-none border border-white/10 focus:border-blue-500/60 transition-colors placeholder-white/20"
-                    style={{ background: 'rgba(255,255,255,0.05)' }} />
-                </div>
+              <button type="submit" disabled={loading}
+                className="w-full py-3.5 rounded-xl text-white font-bold text-sm tracking-wide hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-blue-900/40 disabled:opacity-60 cursor-pointer mt-1"
+                style={{ background: 'linear-gradient(135deg,#1d4ed8,#0ea5e9)' }}>
+                {loading ? 'Creating Account…' : 'Create Account & Sign In →'}
+              </button>
 
-                {error && <ErrorBox msg={error} />}
+              <div className="flex items-center gap-3 my-2">
+                <div className="flex-1 h-px bg-white/10" />
+                <span className="text-white/25 text-xs">or continue with</span>
+                <div className="flex-1 h-px bg-white/10" />
+              </div>
 
-                <button type="submit" disabled={loading}
-                  className="w-full py-4 rounded-xl text-white font-bold text-sm tracking-wide hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-blue-900/40 disabled:opacity-60"
-                  style={{ background: 'linear-gradient(135deg,#1d4ed8,#0ea5e9)' }}>
-                  {loading ? 'Sending OTP…' : 'Continue — Get OTP →'}
-                </button>
-
-                <div className="flex items-center gap-3 my-2">
-                  <div className="flex-1 h-px bg-white/10" />
-                  <span className="text-white/25 text-xs">or</span>
-                  <div className="flex-1 h-px bg-white/10" />
-                </div>
-
-                <div className="flex justify-center">
-                  {loading
-                    ? <div className="w-10 h-10 rounded-full border-4 border-white/10 border-t-blue-400" style={{ animation: 'spin 0.8s linear infinite' }} />
-                    : <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => setError('Google sign-up failed.')}
-                        useOneTap={false} shape="rectangular" theme="filled_blue" size="large" text="signup_with" width="320" />
-                  }
-                </div>
-              </form>
-            ) : (
-              <form onSubmit={handleVerifyOtp} className="flex flex-col gap-5">
-                <div className="rounded-2xl px-4 py-3 text-center border border-blue-400/20"
-                  style={{ background: 'rgba(29,78,216,0.1)' }}>
-                  <p className="text-blue-300 text-xs">OTP sent to the email linked with <span className="font-bold text-white">{userId}</span></p>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label className="text-white/40 text-xs font-semibold uppercase tracking-wider text-center">Enter 6-digit OTP</label>
-                  <OtpInput value={otp} onChange={setOtp} />
-                </div>
-
-                {error && <ErrorBox msg={error} />}
-
-                <button type="submit" disabled={loading}
-                  className="w-full py-3.5 rounded-xl text-white font-bold text-sm hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-blue-900/40 disabled:opacity-60"
-                  style={{ background: 'linear-gradient(135deg,#1d4ed8,#0ea5e9)' }}>
-                  {loading ? 'Verifying…' : 'Verify & Create Account →'}
-                </button>
-
-                <div className="text-center">
-                  {resendTimer > 0
-                    ? <p className="text-white/25 text-xs">Resend OTP in <span className="text-white/50 font-semibold">{resendTimer}s</span></p>
-                    : <button type="button" onClick={async () => {
-                        setOtp('');
-                        try { await authApi.registerRequestOtp(userId, email, password, role); } catch (e) { /* eslint-disable-line no-unused-vars */ }
-                        startResendTimer();
-                      }} className="text-blue-400 hover:text-blue-300 text-xs font-semibold transition-colors">
-                        Resend OTP
-                      </button>
-                  }
-                </div>
-              </form>
-            )}
+              <div className="flex justify-center">
+                <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => setError('Google sign-up failed.')}
+                  useOneTap={false} shape="rectangular" theme="filled_blue" size="large" text="signup_with" width="320" />
+              </div>
+            </form>
 
             <p className="text-center text-white/25 text-xs mt-5">
               Already have an account?{' '}
@@ -220,7 +170,7 @@ const SignUpPage = () => {
           </div>
         </div>
 
-        <p className="text-center text-white/15 text-xs mt-5">🔒 256-bit encrypted · HIPAA-aligned</p>
+        <p className="text-center text-white/15 text-xs mt-5">🔒 256-bit encrypted · Direct Access</p>
       </div>
 
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>

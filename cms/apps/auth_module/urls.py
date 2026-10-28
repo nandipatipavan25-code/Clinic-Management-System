@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import (
     GoogleLoginView,
+    DirectLoginView,
+    DirectRegisterView,
     LoginRequestOtpView, LoginVerifyOtpView,
     RegisterRequestOtpView, RegisterVerifyOtpView,
     MeView, LogoutView, CookieTokenRefreshView,
@@ -8,6 +10,10 @@ from .views import (
 )
 
 urlpatterns = [
+    # Direct / Dummy Sign In & Sign Up
+    path('auth/login/',           DirectLoginView.as_view(),         name='auth_login'),
+    path('auth/register/',        DirectRegisterView.as_view(),      name='auth_register'),
+
     # Google OAuth
     path('auth/google/',          GoogleLoginView.as_view(),         name='auth_google'),
 

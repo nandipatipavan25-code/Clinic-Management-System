@@ -17,13 +17,6 @@ class CustomUser(AbstractUser):
 
     def clean(self):
         super().clean()
-        from django.core.exceptions import ValidationError
-        
-        if self.role in ['receptionist', 'technician']:
-            existing = CustomUser.objects.filter(role=self.role).exclude(pk=self.pk)
-            if existing.exists():
-                role_name = dict(self.ROLE_CHOICES).get(self.role, self.role)
-                raise ValidationError(f"A {role_name} account already exists. Please edit the existing account.")
 
     def __str__(self):
         return f"{self.email} ({self.role})"
@@ -41,8 +34,11 @@ def create_staff_profile(sender, instance, created, **kwargs):
         Doctor.objects.get_or_create(
             user=instance,
             defaults={
-                'specialty': 'General',
-                'registration_number': f'REG-{instance.id}'
+                'specialty': 'Cardiology' if instance.role == 'senior_doctor' else 'General Medicine',
+                'registration_number': f'REG-{instance.id}',
+                'accepts_inperson': True,
+                'accepts_virtual': True,
+                'is_visible_to_patients': True,
             }
         )
     elif instance.role == 'receptionist':
@@ -51,6 +47,24 @@ def create_staff_profile(sender, instance, created, **kwargs):
     elif instance.role == 'technician':
         from apps.users.models import Technician
         Technician.objects.get_or_create(user=instance)
+    elif instance.role == 'patient':
+        from apps.users.models import Patient
+        import random
+        if not hasattr(instance, 'patient_profile'):
+            rand_mobile = f"9{random.randint(100000000, 999999999)}"
+            while Patient.objects.filter(mobile_number=rand_mobile).exists():
+                rand_mobile = f"9{random.randint(100000000, 999999999)}"
+            Patient.objects.get_or_create(
+                user=instance,
+                defaults={
+                    'patient_id': f"PAT-{instance.id:04d}",
+                    'full_name': instance.get_full_name() or instance.username or "Patient",
+                    'date_of_birth': "1995-01-01",
+                    'gender': "Other",
+                    'mobile_number': rand_mobile,
+                    'email': instance.email
+                }
+            )
 
     # Automatically assign the user to the correct permission Group
     role_to_group = {

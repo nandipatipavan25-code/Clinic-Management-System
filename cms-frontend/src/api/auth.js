@@ -1,6 +1,18 @@
 import apiClient from './axios';
 
 export const authApi = {
+  // Direct / Dummy Sign In
+  login: async (email, password, role) => {
+    const res = await apiClient.post('/auth/login/', { email, password, role });
+    return res.data;
+  },
+
+  // Direct Sign Up
+  register: async (username, email, password, role) => {
+    const res = await apiClient.post('/auth/register/', { username, email, password, role });
+    return res.data;
+  },
+
   // Google OAuth
   googleLogin: async (idToken) => {
     const res = await apiClient.post('/auth/google/', { id_token: idToken });

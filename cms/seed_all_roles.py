@@ -13,7 +13,7 @@ from apps.medical_records.models import Drug, ScanOrder, Prescription, Prescribe
 
 print("Seeding CLMS users for all roles...")
 
-PASSWORD = "Password123!"
+PASSWORD = "123"
 
 # 1. Senior Doctor (Admin)
 senior_doctor_user, created = CustomUser.objects.get_or_create(

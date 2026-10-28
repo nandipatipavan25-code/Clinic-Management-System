@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         ret['full_name'] = instance.get_full_name()
         ret.pop('get_full_name', None)
         
-        if instance.role == 'doctor' and hasattr(instance, 'doctor'):
+        if instance.role in ['doctor', 'senior_doctor'] and hasattr(instance, 'doctor'):
             # Fetch availabilities
             availabilities = []
             for av in instance.doctor.availabilities.all():
