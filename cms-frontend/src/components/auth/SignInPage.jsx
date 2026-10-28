@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
 import { authApi } from '../../api/auth';
 import { ROLE_CONFIG } from '../../utils/roleConfig';
+import MediSmartLogo from '../common/MediSmartLogo';
 
 const ROLES = [
   { id: 'senior_doctor', label: 'Senior Doctor', badge: 'Admin', icon: '🩺', defaultEmail: 'seniordoctor@clinic.com' },
@@ -96,11 +97,8 @@ const SignInPage = () => {
       <div className="w-full max-w-[540px] relative z-10">
         {/* Header */}
         <div className="flex flex-col items-center mb-6 text-center">
-          <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25 mb-3"
-            style={{ background: 'linear-gradient(135deg,#2563eb,#06b6d4)' }}>
-            <svg viewBox="0 0 24 24" fill="white" className="w-6 h-6">
-              <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-6 14h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/>
-            </svg>
+          <div className="mb-3">
+            <MediSmartLogo size={52} />
           </div>
           <h1 className="text-white font-black text-2xl tracking-tight">MediSmart</h1>
           <p className="text-white/50 text-xs mt-1">

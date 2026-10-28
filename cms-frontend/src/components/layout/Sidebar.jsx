@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
 import { ROLE_CONFIG } from '../../utils/roleConfig';
 import * as Icons from 'lucide-react';
+import MediSmartLogo from '../common/MediSmartLogo';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -13,7 +14,8 @@ const Sidebar = () => {
 
   return (
     <div className="hidden md:flex w-[240px] bg-navy text-white flex-col h-screen sticky top-0 shrink-0 shadow-lg z-20">
-      <div className="h-[70px] flex items-center justify-center border-b border-white/10 shrink-0">
+      <div className="h-[70px] flex items-center px-6 gap-3 border-b border-white/10 shrink-0">
+        <MediSmartLogo size={32} />
         <span className="text-xl font-bold tracking-tight">MediSmart</span>
       </div>
       <nav className="flex-1 py-4 overflow-y-auto custom-scrollbar">

@@ -9,6 +9,7 @@ import api from '../../api/axios';
 import useUnreadCount from '../../hooks/useUnreadCount';
 import { NotificationDrawer } from './NotificationDrawer';
 import EditableProfileModal from '../patient/EditableProfileModal';
+import MediSmartLogo from '../common/MediSmartLogo';
 const TopNav = () => {
   const { user, logout } = useAuthStore();
   const roleConfig = user?.role ? ROLE_CONFIG[user.role] : null;
@@ -177,14 +178,10 @@ const TopNav = () => {
       <header className="h-[70px] bg-white border-b border-gray-200 flex items-center justify-between px-6 sticky top-0 z-50 shadow-sm">
         <div className="flex items-center gap-8">
           <div 
-            className={`flex items-center gap-2 cursor-pointer ${user?.role === 'senior_doctor' ? 'md:hidden' : ''}`} 
+            className={`flex items-center gap-3 cursor-pointer ${user?.role === 'senior_doctor' ? 'md:hidden' : ''}`} 
             onClick={() => navigate('/')}
           >
-            <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center text-white shadow-sm">
-              <svg viewBox="0 0 24 24" fill="white" className="w-5 h-5">
-                <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-6 14h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/>
-              </svg>
-            </div>
+            <MediSmartLogo size={38} />
             <h1 className="text-navy font-bold text-lg hidden lg:block tracking-tight">MediSmart</h1>
           </div>
 

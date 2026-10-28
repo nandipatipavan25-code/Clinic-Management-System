@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
 import { ROLE_CONFIG } from '../../utils/roleConfig';
+import MediSmartLogo from '../common/MediSmartLogo';
 
 /* ── Main Landing Page ── */
 const LoginPage = () => {
@@ -62,17 +63,8 @@ const LoginPage = () => {
         style={{ background: 'rgba(3,13,29,0.75)' }}>
         
         {/* Logo */}
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
-          <div className="w-10 h-10 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25"
-            style={{ background: 'linear-gradient(135deg,#1d4ed8,#0ea5e9)' }}>
-            <svg viewBox="0 0 24 24" fill="white" className="w-6 h-6">
-              <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-6 14h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/>
-            </svg>
-          </div>
-          <div>
-            <p className="text-white font-black text-lg leading-none tracking-tight">MediSmart</p>
-            <p className="text-cyan-400 text-[10px] uppercase tracking-widest font-semibold mt-0.5">Healthcare OS</p>
-          </div>
+        <div className="cursor-pointer" onClick={() => navigate('/')}>
+          <MediSmartLogo size={42} showText={true} />
         </div>
 
         {/* Nav links — desktop */}
@@ -326,12 +318,7 @@ const LoginPage = () => {
       <footer className="relative z-10 px-6 lg:px-16 py-10 mt-auto">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center shadow-md"
-              style={{ background: 'linear-gradient(135deg,#2563eb,#06b6d4)' }}>
-              <svg viewBox="0 0 24 24" fill="white" className="w-4 h-4">
-                <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-6 14h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/>
-              </svg>
-            </div>
+            <MediSmartLogo size={32} showText={false} />
             <span className="text-white/80 text-sm font-bold tracking-tight">MediSmart</span>
           </div>
           <p className="text-white/30 text-xs">© 2026 MediSmart Platform · All rights reserved</p>
