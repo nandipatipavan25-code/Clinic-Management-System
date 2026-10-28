@@ -19,3 +19,8 @@ cms-frontend/.env
 
 # Django media uploads (user-generated files - do not commit)
 cms/media/
+
+# Presentations and PDFs (do not commit)
+*.pdf
+*deck*
+*Presentation*
